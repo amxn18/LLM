@@ -1,4 +1,4 @@
-# ⚡ Simplified Attention Mechanism (Without Trainable Weights)
+# Simplified Attention Mechanism (Without Trainable Weights)
 
 This project implements a **basic attention mechanism** using PyTorch, but without any trainable parameters.  
 The goal is to understand *how attention works under the hood* before adding complexity like queries, keys, and values with learned weights.
