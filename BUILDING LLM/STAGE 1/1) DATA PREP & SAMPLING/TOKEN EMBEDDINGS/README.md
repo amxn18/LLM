@@ -1,4 +1,4 @@
-# 📘 Vector Embeddings & Positional Embeddings in NLP
+#  Vector Embeddings & Positional Embeddings in NLP
 
 ## 🔹 1. What are Token (Vector) Embeddings?
 - Words (or tokens) in text are initially represented as **integers (IDs)**.
