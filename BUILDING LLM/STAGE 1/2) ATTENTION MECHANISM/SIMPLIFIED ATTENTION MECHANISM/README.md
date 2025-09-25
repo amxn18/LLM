@@ -54,7 +54,7 @@ It works by assigning weights (attention scores) to different tokens, and then c
 
 ---
 
-## 📝 Summary
+##  Summary
 
 1. **Compute Attention Scores** → similarity via dot products.  
 2. **Normalize Scores** → use softmax to get attention weights.  

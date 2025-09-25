@@ -84,7 +84,7 @@ It uses **Query (Q)**, **Key (K)**, and **Value (V)** matrices to calculate weig
 
 ---
 
-## 🔮 Final Intuition
+##  Final Intuition
 - Self-Attention answers:  
 - **“Which tokens should I focus on to understand the current token?”**  
 - Context vectors → enriched embeddings used in Transformers.  

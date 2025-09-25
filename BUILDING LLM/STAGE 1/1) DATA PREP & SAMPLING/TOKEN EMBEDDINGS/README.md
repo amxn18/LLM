@@ -76,9 +76,9 @@ Example with:
 - Context length = 4
 - Vector dim = 256
 
-👉 Token embeddings → (8 × 4 × 256)  
-👉 Positional embeddings → (4 × 256)  
-👉 Final input embeddings → (8 × 4 × 256)
+ Token embeddings → (8 × 4 × 256)  
+ Positional embeddings → (4 × 256)  
+ Final input embeddings → (8 × 4 × 256)
 
 ---
 

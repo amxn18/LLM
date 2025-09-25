@@ -8,9 +8,9 @@ It was originally a text compression method, but later adapted for tokenization 
 
 ## 🔎 Why not Word-level or Character-level Tokenization?
 - **Word-level tokenization**  
-  - ❌ Huge vocabulary size (every word is unique).  
-  - ❌ Struggles with out-of-vocabulary (OOV) words.  
-  - ❌ Memory heavy and inefficient.  
+  - Huge vocabulary size (every word is unique).  
+  - Struggles with out-of-vocabulary (OOV) words.  
+  - Memory heavy and inefficient.  
 
 - **Character-level tokenization**  
   - ❌ Very small vocabulary (only alphabets, digits, symbols).  

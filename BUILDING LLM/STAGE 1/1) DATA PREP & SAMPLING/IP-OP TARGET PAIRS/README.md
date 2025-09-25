@@ -48,7 +48,7 @@ PyTorch Dataset
    ↓ (DataLoader)  
 Batches → Model Training
 
-✔ Input–Target shifting is the core of next-token prediction.  
-✔ Sliding windows ensure overlapping context for better learning.  
-✔ Dataset + DataLoader make training scalable and efficient.  
-✔ Batch size selection impacts both training speed and stability.  
+ Input–Target shifting is the core of next-token prediction.  
+ Sliding windows ensure overlapping context for better learning.  
+ Dataset + DataLoader make training scalable and efficient.  
+ Batch size selection impacts both training speed and stability.  
