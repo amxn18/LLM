@@ -1,14 +1,14 @@
-# 🧠 Self-Attention Mechanism (Scaled Dot-Product Attention)
+# Self-Attention Mechanism (Scaled Dot-Product Attention)
 
 ---
 
-## ⚡ Intuition
+##  Intuition
 The **Self-Attention Mechanism** allows each token in a sequence to "look at" other tokens and decide **which words are more important** for understanding its meaning.  
 It uses **Query (Q)**, **Key (K)**, and **Value (V)** matrices to calculate weighted representations of tokens.
 
 ---
 
-## 🪜 Step-by-Step Breakdown
+##  Step-by-Step Breakdown
 
 ### 🔹 S1) Converting Input into Query, Key, Value Matrices
 - Each input embedding is projected into 3 different spaces:
@@ -40,7 +40,7 @@ It uses **Query (Q)**, **Key (K)**, and **Value (V)** matrices to calculate weig
 * ScaledScores = AttentionScores / √(dim(K))
 * Then apply **Softmax** along the last dimension: AttentionWeights = softmax(ScaledScores, dim=-1)
 
-- ✅ Why scaling?
+-  Why scaling?
 1. Prevents **training instability**.  
 2. Keeps **variance stable** (avoids exploding values).  
 3. Ensures smooth probability distribution.  
@@ -55,7 +55,7 @@ It uses **Query (Q)**, **Key (K)**, and **Value (V)** matrices to calculate weig
 
 ---
 
-## 🔑 What Happens During Training?
+##  What Happens During Training?
 - **Wq, Wk, Wv are trainable**.  
 - During backpropagation:
 - Gradients update these matrices.  
@@ -64,7 +64,7 @@ It uses **Query (Q)**, **Key (K)**, and **Value (V)** matrices to calculate weig
 
 ---
 
-## 🧩 Why Q, K, V Split?
+##  Why Q, K, V Split?
 - If we used only one matrix, each token would attend to itself in a trivial way.  
 - Splitting into **Q, K, V** allows:
 - Queries → express what the token "wants".  
@@ -74,7 +74,7 @@ It uses **Query (Q)**, **Key (K)**, and **Value (V)** matrices to calculate weig
 
 ---
 
-## 🏗️ Implementations in Code
+##  Implementations in Code
 - **Version 1 (Manual Weights):**
 - Uses `nn.Parameter` for Wq, Wk, Wv.  
 - Computes attention step-by-step.  

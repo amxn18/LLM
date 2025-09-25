@@ -9,7 +9,7 @@
 
 - These vectors are **learnable parameters**, trained so that similar words get similar embeddings.
 
-📌 Example:  
+ Example:  
 If `vocab_size = 50,257` and `vector_dim = 256`,  
 the embedding table is a **matrix of shape (50,257 × 256)**.  
 Each row corresponds to one token → one embedding vector.
@@ -17,9 +17,9 @@ Each row corresponds to one token → one embedding vector.
 ---
 
 ## 🔹 2. Why Do We Need Embeddings?
-✅ Convert discrete tokens (integers) into **continuous vectors** that models can process.  
-✅ Capture **semantic meaning** (e.g., "king" and "queen" will be close in vector space).  
-✅ Enable models to generalize better on unseen text.
+ Convert discrete tokens (integers) into **continuous vectors** that models can process.  
+ Capture **semantic meaning** (e.g., "king" and "queen" will be close in vector space).  
+ Enable models to generalize better on unseen text.
 
 ---
 
@@ -30,7 +30,7 @@ Each row corresponds to one token → one embedding vector.
 
 ---
 
-### 🅰️ Absolute Positional Embedding
+###  Absolute Positional Embedding
 - Each position (0, 1, 2, …, context_length-1) has a unique embedding vector.
 - Example:
 
@@ -41,14 +41,14 @@ Each row corresponds to one token → one embedding vector.
 
   Input Embedding = Token Embedding + Positional Embedding
 
-📌 Shape:  
+ Shape:  
 - Token Embeddings: (Batch_size × Context_len × Vector_dim)  
 - Positional Embeddings: (Context_len × Vector_dim)  
 - Final Input Embeddings: (Batch_size × Context_len × Vector_dim)
 
 ---
 
-### 🅱️ Relative Positional Embedding
+###  Relative Positional Embedding
 - Instead of encoding **absolute positions**, it encodes **relative distances** between tokens.  
 - Example:  
   In the sentence `"I love NLP"`, the model might encode:  
@@ -82,7 +82,7 @@ Example with:
 
 ---
 
-# 🎯 Summary
+#  Summary
 - **Token Embeddings** → give meaning to tokens.  
 - **Positional Embeddings** → give order to tokens.  
 - Together, they form the **input embeddings** that Transformers use to learn patterns in text.
