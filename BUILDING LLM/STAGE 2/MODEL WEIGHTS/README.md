@@ -237,4 +237,3 @@
 - [ ] Device availability (CUDA) checked and `model.to(device)` used  
 - [ ] Checkpoint save path configured
 
----
