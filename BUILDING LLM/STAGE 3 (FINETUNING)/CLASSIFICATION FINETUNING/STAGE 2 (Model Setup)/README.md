@@ -1,10 +1,7 @@
-========================================================
 # GPT-2 Fine-Tuning for SMS Spam Classification
-========================================================
 
---------------------------------------------------------
-Project Overview
---------------------------------------------------------
+## Project Overview
+
 This project fine-tunes a pretrained GPT-2 model for binary
 classification of SMS messages into 'spam' or 'ham'.
 
@@ -12,9 +9,8 @@ GPT-2 is originally a language model; here, it is adapted
 for classification by adding a final output head and
 training on a labeled SMS dataset.
 
---------------------------------------------------------
 ## Dataset Preparation
---------------------------------------------------------
+
 - Load the SMS dataset containing text messages and labels.
 - Balance the dataset to ensure equal representation of 'spam'
   and 'ham' to prevent model bias.
@@ -25,9 +21,8 @@ training on a labeled SMS dataset.
   • Validation set (10%) – used for hyperparameter tuning
   • Test set (20%) – used for final evaluation
 
---------------------------------------------------------
 ## DataLoader & Tokenization
---------------------------------------------------------
+
 - Tokenize all messages using GPT-2 tokenizer.
 - Pad or truncate sequences to uniform length matching model's
   context window.
@@ -36,9 +31,8 @@ training on a labeled SMS dataset.
 - Use DataLoaders for batching, shuffling, and efficient
   training.
 
---------------------------------------------------------
 ## Model Setup
---------------------------------------------------------
+
 - Load pretrained GPT-2 weights (e.g., GPT-2 small, 124M).
 - Add a classification head for binary output.
 - Freeze all pretrained layers except:
@@ -57,17 +51,15 @@ training on a labeled SMS dataset.
 - Hyperparameters include learning rate, batch size, epochs,
   and dropout rate.
 
---------------------------------------------------------
 ## Evaluation
---------------------------------------------------------
+
 - Evaluate performance on test set.
 - Metrics: Accuracy, Precision, Recall, F1-Score
 - Extract predictions using the final token to determine 'spam'
   or 'ham'.
 
---------------------------------------------------------
 ## Key Concepts Highlighted
---------------------------------------------------------
+
 - Balanced Dataset: prevents bias towards majority class
 - Tokenization & Padding: converts variable-length text into
   fixed-size sequences
