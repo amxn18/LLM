@@ -1,7 +1,7 @@
 # GPT-2 SMS Spam Classifier 
 
 1) Dataset Preparation
-=====================
+
 Dataset Source and Structure:
 - SMS messages labeled as spam or ham (not spam).
 - Columns:
@@ -24,7 +24,7 @@ Conceptual Note:
 - Validation prevents overfitting by monitoring performance on unseen data.
 
 2) Data Tokenization and DataLoader Creation
-============================================
+
 Tokenization:
 - SMS texts converted into token IDs using GPT-2 tokenizer.
 - Sequences padded to uniform length.
@@ -44,7 +44,7 @@ Conceptual Note:
 - Batching & padding enable parallel computation and maintain context across sequences.
 
 3) Model Architecture
-=====================
+
 Base GPT-2 Model:
 - Transformer-based language model predicting next token.
 - Pretrained on large corpora capturing syntactic, semantic, and contextual relationships.
@@ -64,7 +64,7 @@ Activation & Normalization:
 - LayerNorm: Feature-wise normalization for numerical stability.
 
 4) Modifying GPT-2 for Classification
-=====================================
+
 Classification Head:
 - Original output head replaced with linear layer mapping embedding → 2 classes.
 - Only last token output used for sequence-level classification.
@@ -80,7 +80,7 @@ Conceptual Note:
 - Reduces training time and prevents overfitting.
 
 5) Finetuning the Model
-=======================
+
 Training Steps:
 - Forward Pass: Input → GPT-2 → last-token logits.
 - Loss Computation: Cross-entropy vs true labels.
@@ -97,7 +97,7 @@ Visualization:
 - Identifies underfitting, overfitting, and training stability.
 
 6) Using the Finetuned Model
-============================
+
 Inference Pipeline:
 - Preprocessing: Truncate/pad input to max length.
 - Tokenization: Text → token IDs.
@@ -112,7 +112,7 @@ Example Usage:
 - Practical spam detection in real-world messages.
 
 7) Key Learnings
-================
+
 - Transfer Learning in NLP: Pretrained models accelerate task-specific training.
 - Attention Mechanisms: Capture dependencies efficiently.
 - Sequence-Level Classification: Last token summarizes input.
@@ -120,13 +120,13 @@ Example Usage:
 - Evaluation Strategy: Balanced dataset + validation prevents bias.
 
 8) Project Impact
-=================
+
 - Real-time spam detection in messaging platforms.
 - Demonstrates GPT-2 adaptability beyond text generation.
 - Template for finetuning GPT-2 for other classification tasks.
 
 9) Next Steps / Extensions
-==========================
+
 - Experiment with GPT variants (medium, large) for higher accuracy.
 - Introduce data augmentation for robustness.
 - Explore multi-class classification beyond spam/ham.
