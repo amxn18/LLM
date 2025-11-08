@@ -75,7 +75,7 @@ chain = step1 | step2 | step3
 RunnableSequence still exists for learning purposes, but LCEL is now the standard.
 
 ────────────────────────────────────────────────────────
-# 4. RUNNABLE PRIMITIVES (DETAILED EXPLANATION + YOUR CODE)
+# 4. RUNNABLE PRIMITIVES 
 ────────────────────────────────────────────────────────
 
 Below are all runnable primitives you used, with detailed understanding and exact behavior.
