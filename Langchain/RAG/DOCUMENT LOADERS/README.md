@@ -1,5 +1,6 @@
 # RAG DOCUMENT LOADERS 
 
+- Documentation - https://docs.langchain.com/oss/python/integrations/document_loaders
 ────────────────────────────────────────────────────────
 # 1. WHAT ARE DOCUMENT LOADERS?
 ────────────────────────────────────────────────────────
