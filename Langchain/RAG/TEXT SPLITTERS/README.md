@@ -1,13 +1,5 @@
 # TEXT SPLITTERS 
 
-This document explains the four major types of text splitters used in LangChain for RAG systems:
-1. Character-based splitting  
-2. Text-based (recursive) splitting  
-3. Document-structured splitting (language-aware)  
-4. Semantic-meaning–based splitting  
-
-It also covers why splitting is required, how each splitter behaves, best practices, and when to use each one.
-
 ────────────────────────────────────────────────────────
 # 1. WHAT ARE TEXT SPLITTERS?
 ────────────────────────────────────────────────────────
