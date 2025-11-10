@@ -1,4 +1,4 @@
-# TEXT SPLITTERS IN LANGCHAIN — COMPLETE README (NO CODE)
+# TEXT SPLITTERS 
 
 This document explains the four major types of text splitters used in LangChain for RAG systems:
 1. Character-based splitting  
