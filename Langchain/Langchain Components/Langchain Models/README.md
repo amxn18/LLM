@@ -1,7 +1,4 @@
-# LangChain Models Integration – Complete Guide
-
-This document explains how various Large Language Models (LLMs) and Embedding Models are integrated using **LangChain**.  
-It covers **Google Gemini**, **Hugging Face Models**, **Open Source Models**, and **Document Similarity Search** using Embeddings.
+# LangChain Models
 
 ---
 
