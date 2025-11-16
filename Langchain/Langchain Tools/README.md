@@ -1,8 +1,6 @@
 # Langchain Tools
 
-=====================================================================
 WHAT ARE TOOLS IN LANGCHAIN?
-=====================================================================
 
 Tools in LangChain act as capability extensions. They allow an agent or application to perform actions that require logic outside of a language model's internal reasoning capability. Since language models cannot directly access the internet, the shell, or specific user-defined functions, tools act as controlled interfaces to these operations.
 
@@ -14,9 +12,9 @@ A tool typically consists of:
 
 Tools allow a language model to transform from a "static pattern recognizer" into an "interactive agent" capable of performing tasks, calling functions, retrieving real data, and making decisions with grounded inputs.
 
-=====================================================================
+
 BUILT-IN TOOLS
-=====================================================================
+
 
 Built-in tools are pre-created, production-ready components included with LangChain. They are optimized, tested, and follow the correct tool specification structure automatically.
 
@@ -45,9 +43,7 @@ This tool enables controlled execution of shell commands in a local environment.
 
 This tool is powerful and therefore often used in restricted environments to ensure safety and prevent misuse.
 
-=====================================================================
-WHY CUSTOM TOOLS ARE IMPORTANT
-=====================================================================
+@ WHY CUSTOM TOOLS ARE IMPORTANT
 
 Built-in tools only cover general-purpose needs. Real-world applications require custom behavior, such as:
 - Calling private APIs
@@ -65,9 +61,8 @@ Custom tools allow a developer to define exactly what an AI agent is allowed to 
 
 LangChain provides three different approaches to create these custom tools, each suited to different complexity levels.
 
-=====================================================================
 METHOD 1: DECORATOR-BASED CUSTOM TOOLS
-=====================================================================
+
 
 This method focuses on simplicity and fast development. It is ideal for:
 - Quick prototyping  
@@ -84,9 +79,9 @@ Key characteristics:
 
 This approach is recommended when the logic is straightforward, and you do not need advanced validation beyond basic type hints.
 
-=====================================================================
+
 METHOD 2: STRUCTURED TOOL CREATION WITH SCHEMAS
-=====================================================================
+
 
 This method involves defining a separate input schema with explicit validation rules. It is suitable for:
 - Tools needing detailed input descriptions  
@@ -103,9 +98,9 @@ Key characteristics:
 
 This method is preferred in production environments where input correctness is essential.
 
-=====================================================================
+
 METHOD 3: BASE CLASS CUSTOM TOOLS
-=====================================================================
+
 
 This is the most flexible and advanced approach, giving complete control over tool behavior. It is ideal for:
 - Complex business logic  
@@ -123,9 +118,9 @@ Key characteristics:
 
 This approach is used when tools must adhere to specialized rules beyond simple function calls.
 
-=====================================================================
-HOW TO CHOOSE THE RIGHT METHOD
-=====================================================================
+
+-> HOW TO CHOOSE THE RIGHT METHOD
+
 
 Decision guide:
 
@@ -133,9 +128,8 @@ Decision guide:
 2. If the tool must strictly validate its inputs or requires descriptive schemas, use the structured tool approach.
 3. If full control, extensibility, or complex internal behavior is required, use the base class method.
 
-=====================================================================
-TOOLKITS
-=====================================================================
+
+-> TOOLKITS
 
 A toolkit is a logical grouping of tools bundled into a single collection. It is equivalent to packaging multiple tools behind a common theme or use case.
 
@@ -155,9 +149,8 @@ Examples of toolkit groupings:
 
 Toolkits act as plug-and-play modules. Agents consume an entire toolkit rather than individual tools, enabling flexible and structured configurations.
 
-=====================================================================
-ADVANTAGES OF USING TOOLKITS
-=====================================================================
+
+-> ADVANTAGES OF USING TOOLKITS
 
 1. Centralization  
    Organizes related tools together and simplifies management.
@@ -174,5 +167,5 @@ ADVANTAGES OF USING TOOLKITS
 5. Cleaner agent configurations  
    Agents only need to load one toolkit instead of multiple individual tools.
 
-=====================================================================
+
 
