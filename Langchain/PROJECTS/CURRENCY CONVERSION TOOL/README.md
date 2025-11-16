@@ -1,0 +1,163 @@
+# Currency Conversion Tool Using Langchain
+---------------------------------------------------------------------
+SECTION 1: TOOL CREATION
+---------------------------------------------------------------------
+
+Tools extend an LLM’s abilities beyond text generation by giving it access to real-world operations. A tool must clearly define:
+
+1. The name of the tool  
+2. The descriptions (so the model knows when to use it)  
+3. The input schema (parameters and their types)  
+4. The function logic (actual execution performed by Python)  
+
+In the workflow demonstrated, two tools were created:
+
+- A tool that fetches a currency conversion factor from an external API  
+- A tool that computes a converted currency value using the conversion factor  
+
+These tools must be deterministic, safe, and self-explanatory so that the LLM decides correctly when to call them.
+
+---------------------------------------------------------------------
+SECTION 2: TOOL BINDING
+---------------------------------------------------------------------
+
+Tool binding attaches tools to the language model. During this step:
+
+- The model receives the list of tools  
+- The model receives tool descriptions and argument schemas  
+- The model becomes capable of identifying when a tool is relevant  
+
+Binding tools does not execute anything; it only informs the LLM that these tools exist and can be requested.
+
+This step is essential because a model does not inherently know which functions are available—it must be explicitly provided with tool definitions.
+
+---------------------------------------------------------------------
+SECTION 3: TOOL CALLING
+---------------------------------------------------------------------
+
+Once tools are bound, the LLM receives a user query. If the LLM determines that the query requires a tool, it produces a structured response describing:
+
+- The tool name  
+- The arguments needed  
+- A unique tool call identifier  
+
+Modern tool-calling LLMs produce exactly one tool call per message. Multi-step problems do not produce multiple tool calls at once. Instead, the model requests one tool, waits for the tool result, and only after receiving it does it request the next tool.
+
+This sequential behavior ensures:
+
+- Predictability  
+- Safety  
+- Proper dependency resolution  
+- Stepwise reasoning  
+
+---------------------------------------------------------------------
+SECTION 4: TOOL EXECUTION
+---------------------------------------------------------------------
+
+Tool execution is not performed by the model. The model only recommends actions; execution is done by:
+
+- The developer  
+- LangChain  
+- An agent (if used)  
+
+In this workflow, tools were executed manually after each tool call.
+
+Execution includes:
+
+1. Reading the tool name and arguments requested by the model  
+2. Running the corresponding Python function  
+3. Preparing a structured message containing the tool result  
+4. Sending this structured result back to the model  
+
+Once the model receives the tool result, it can plan its next step—either calling another tool or generating a final natural-language answer.
+
+---------------------------------------------------------------------
+SECTION 5: WHY MULTIPLE TOOL CALLS DO NOT HAPPEN AT ONCE
+---------------------------------------------------------------------
+
+Modern LLMs (Qwen, GPT, Llama, Mistral, Phi, Gemma) follow the OpenAI function-calling protocol. This design enforces:
+
+- One tool call per LLM message  
+- Step-by-step (ReAct-style) reasoning  
+- Waiting for tool results before planning the next action  
+
+This prevents unsafe or uncontrolled multi-step execution and ensures predictable, supervised behavior.
+
+Older LangChain tutorials may show multiple “tool calls” in one output, but those use an older text-parsing system, not modern structured tool calling. Modern structured tool calling does not support multiple calls in one message.
+
+---------------------------------------------------------------------
+SECTION 6: THE ISSUE WE ENCOUNTERED AND WHY IT HAPPENED
+---------------------------------------------------------------------
+
+After executing a tool, the raw dictionary returned by the function was appended directly to the conversation history. This caused a critical error because modern LangChain expects all messages in the conversation to follow strict message schemas containing fields such as role and content.
+
+The raw dictionary returned by the tool:
+
+- Did not include a role  
+- Did not include content  
+- Did not include a tool_call_id  
+
+Because of this, LangChain could not convert the dictionary into a valid chat message. This resulted in an error stating that message dictionaries must contain specific keys.
+
+The correct solution was to wrap tool outputs in a ToolMessage that contains:
+
+- The tool name  
+- A stringified version of the tool result  
+- The exact tool_call_id of the tool request  
+
+This allowed LangChain to correctly associate the tool result with the tool call generated by the LLM, enabling the model to proceed to the next step.
+
+---------------------------------------------------------------------
+SECTION 7: WHY TOOL CALL ID IS NECESSARY
+---------------------------------------------------------------------
+
+Each tool call generated by the model includes a unique identifier. This identifier ensures:
+
+1. The tool result is correctly linked to the specific tool call  
+2. The model understands which request this result corresponds to  
+3. Multi-step execution maintains proper ordering  
+4. No ambiguity occurs in complex workflows  
+
+Omitting the tool call ID prevents LangChain from associating the returned tool result with the tool call, causing internal validation errors.
+
+---------------------------------------------------------------------
+SECTION 8: MULTI-STEP TOOL WORKFLOW
+---------------------------------------------------------------------
+
+The user query required two steps:
+
+1. Fetch the conversion factor  
+2. Convert the currency value  
+
+Since the model cannot perform multiple tool calls at once, the workflow proceeds like this:
+
+1. LLM calls the first tool  
+2. Developer executes the first tool  
+3. Tool result is wrapped and returned to the model  
+4. LLM calls the second tool  
+5. Developer executes the second tool  
+6. Tool result is wrapped and returned  
+7. LLM produces the final answer  
+
+This step-by-step execution mimics agent behavior but is performed manually, without using LangChain agents.
+
+---------------------------------------------------------------------
+SECTION 9: WHY MANUAL EXECUTION IS REQUIRED WITHOUT AGENTS
+---------------------------------------------------------------------
+
+Without agents:
+
+- LangChain does not automatically execute tools  
+- LangChain does not automatically feed tool results back to the model  
+- LangChain does not run multi-step reasoning loops  
+
+Therefore, the developer must manually:
+
+1. Inspect the tool call  
+2. Execute the corresponding function  
+3. Create a ToolMessage  
+4. Append it to history  
+5. Call the model again  
+
+This is normal and expected behavior when using tool calling without agents.
+
