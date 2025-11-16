@@ -23,7 +23,7 @@ SECTION 2: TOOL BINDING
 
 Tool binding attaches tools to the language model. During this step:
 
-- The model receives the list of tools  
+- The model receives the list of tools.
 - The model receives tool descriptions and argument schemas  
 - The model becomes capable of identifying when a tool is relevant  
 
