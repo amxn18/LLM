@@ -23,3 +23,4 @@ template = PromptTemplate(
 chain = template | model | parser
 result = chain.invoke({})
 print(result)
+
