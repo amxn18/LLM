@@ -6,18 +6,11 @@ from dotenv import load_dotenv
 
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import (
-    ChatHuggingFace,
-    HuggingFaceEndpoint,
-    HuggingFaceEndpointEmbeddings,
-)
+from langchain_huggingface import ChatHuggingFace,HuggingFaceEndpoint,HuggingFaceEndpointEmbeddings
+
 from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.runnables import (
-    RunnableParallel,
-    RunnablePassthrough,
-    RunnableLambda,
-)
+from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 
 from langsmith import traceable
@@ -33,11 +26,7 @@ INDEX_ROOT.mkdir(exist_ok=True)
 
 EMBED_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
-
-# --------------------------------------------------
-# LLM
-# --------------------------------------------------
-
+# LLM 
 @traceable(name="getModel")
 def getModel():
     llm = HuggingFaceEndpoint(
@@ -46,29 +35,15 @@ def getModel():
         temperature=0.3,
     )
     return ChatHuggingFace(llm=llm)
-
-
 model = getModel()
 
-
-# --------------------------------------------------
 # PDF Loading
-# --------------------------------------------------
-
-@traceable(
-    name="loadPDF",
-    tags=["pdf", "loader"],
-    metadata={"loader": "PyPDFLoader"},
-)
+@traceable(name="loadPDF",tags=["pdf", "loader"],metadata={"loader": "PyPDFLoader"},)
 def loadPDF(path: str):
     loader = PyPDFLoader(path)
     return loader.load()
 
-
-# --------------------------------------------------
 # Chunking
-# --------------------------------------------------
-
 @traceable(name="docsChunker")
 def docsChunker(docs, chunk_size=1000, chunk_overlap=150):
     splitter = RecursiveCharacterTextSplitter(
@@ -77,46 +52,28 @@ def docsChunker(docs, chunk_size=1000, chunk_overlap=150):
     )
     return splitter.split_documents(docs)
 
-
-# --------------------------------------------------
 # Embeddings
-# --------------------------------------------------
-
 def getEmbeddingModel(model_name):
-    return HuggingFaceEndpointEmbeddings(
-        repo_id=model_name
-    )
+    return HuggingFaceEndpointEmbeddings(repo_id=model_name)
 
-
-# --------------------------------------------------
 # Vector Store
-# --------------------------------------------------
-
 @traceable(name="createVectorStore")
 def createVectorStore(chunks, embed_model_name):
     embedding_model = getEmbeddingModel(embed_model_name)
     return FAISS.from_documents(chunks, embedding_model)
 
-
-# --------------------------------------------------
 # Index Utilities
-# --------------------------------------------------
-
 def _file_fingerprint(path: str):
     p = Path(path)
-
     h = hashlib.sha256()
-
     with p.open("rb") as f:
         for chunk in iter(lambda: f.read(1024 * 1024), b""):
             h.update(chunk)
-
     return {
         "sha256": h.hexdigest(),
         "size": p.stat().st_size,
         "mtime": int(p.stat().st_mtime),
     }
-
 
 def _index_key(
     pdf_path,
@@ -131,20 +88,14 @@ def _index_key(
         "embedding_model": embed_model_name,
         "format": "v1",
     }
-
     return hashlib.sha256(
         json.dumps(meta, sort_keys=True).encode()
     ).hexdigest()
 
-
-# --------------------------------------------------
 # Load Existing Index
-# --------------------------------------------------
-
 @traceable(name="load_index", tags=["index"])
 def load_index_run(index_dir, embed_model_name):
     embedding_model = getEmbeddingModel(embed_model_name)
-
     return FAISS.load_local(
         str(index_dir),
         embedding_model,
@@ -152,10 +103,7 @@ def load_index_run(index_dir, embed_model_name):
     )
 
 
-# --------------------------------------------------
 # Build New Index
-# --------------------------------------------------
-
 @traceable(name="build_index", tags=["index"])
 def build_index_run(
     pdf_path,
@@ -195,11 +143,7 @@ def build_index_run(
 
     return vectorstore
 
-
-# --------------------------------------------------
 # Dispatcher
-# --------------------------------------------------
-
 def load_or_build_index(
     pdf_path,
     chunk_size=1000,
@@ -234,10 +178,8 @@ def load_or_build_index(
     )
 
 
-# --------------------------------------------------
-# Prompt
-# --------------------------------------------------
 
+# Prompt
 prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -254,16 +196,9 @@ prompt = ChatPromptTemplate.from_messages(
 
 
 def format_docs(docs):
-    return "\n\n".join(
-        doc.page_content
-        for doc in docs
-    )
+    return "\n\n".join(doc.page_content for doc in docs)
 
-
-# --------------------------------------------------
 # Setup Pipeline
-# --------------------------------------------------
-
 @traceable(name="setup_pipeline", tags=["setup"])
 def setup_pipeline(
     pdf_path,
@@ -281,10 +216,7 @@ def setup_pipeline(
     )
 
 
-# --------------------------------------------------
 # Query
-# --------------------------------------------------
-
 @traceable(name="pdf_rag_full_run")
 def setup_pipeline_and_query(
     pdf_path,
@@ -330,11 +262,7 @@ def setup_pipeline_and_query(
         },
     )
 
-
-# --------------------------------------------------
 # CLI
-# --------------------------------------------------
-
 if __name__ == "__main__":
     print("PDF RAG Ready!")
     while True:
